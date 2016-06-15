@@ -1,0 +1,43 @@
+<html>
+  <head>  
+    <title>System version</title>  
+    <style>
+
+    </style>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <link href="../static/css/bootstrap.css" rel="stylesheet"></link>
+     <link href="../static/css/app.css" rel="stylesheet"></link>
+  </head>
+  <body ng-app="myApp" >
+      <div class="generic-container" ng-controller="SystemVersionController as ctrl">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead"> {{ctrl.systemVersion}} </span></div>
+          </div>
+          
+          <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>ID.</th>
+                              <th>Version</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      	<tr>
+                             <td><span ng-bind="ctrl.systemVersion.id"></span></td>
+                             <td><span ng-bind="ctrl.systemVersion.version"></span></td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+      <script src="../static/js/app.js"></script>
+      <script src="../static/js/service/system_version_service.js"></script>
+      <script src="../static/js/controller/system_version_controller.js"></script>
+  </body>
+</html>
