@@ -29,3 +29,6 @@ tmp/
 local.properties
 .settings/
 .loadpath
+
+
+.tern-project
