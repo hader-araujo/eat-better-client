@@ -11,7 +11,7 @@ App.factory('SystemVersionService', ['$http', '$q', function($http, $q){
 										return response.data;
 									}, 
 									function(errResponse){
-										console.error('Error while fetching users');
+										console.error('Error while fetching system version');
 										return $q.reject(errResponse);
 									}
 							);

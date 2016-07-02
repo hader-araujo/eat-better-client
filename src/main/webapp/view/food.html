@@ -1,0 +1,51 @@
+<html>
+  <head>  
+    <title>Food List</title>  
+    <style>
+
+    </style>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <link href="../static/css/bootstrap.css" rel="stylesheet"></link>
+     <link href="../static/css/app.css" rel="stylesheet"></link>
+     
+  </head>
+  <body ng-app="myApp" >
+      <div class="generic-container" ng-controller="FoodController as ctrl">
+      
+          <div class="panel panel-default">
+          
+          	<button ng-click="ctrl.firstPage()" class="btn btn-link">FIRST</button>
+          	<button ng-click="ctrl.previousPage()" class="btn btn-link">PREVIOUS</button>
+          	<button ng-click="ctrl.nextPage()" class="btn btn-link">NEXT</button>
+          	<button ng-click="ctrl.lastPage()" class="btn btn-link">LAST</button>
+          </div>
+          
+          <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Index</th>
+                              <th>ID.</th>
+                              <th>Name</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                       	<tr ng-repeat="foodItem in ctrl.foodList.list.item">
+                             <td><span ng-bind="foodItem.offset + 1"></span></td>
+                             <td><span ng-bind="foodItem.id"></span></td>
+                             <td><span ng-bind="foodItem.name"></span></td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+      <script src="../static/js/app.js"></script>
+      <script src="../static/js/service/food_service.js"></script>
+      <script src="../static/js/controller/food_controller.js"></script>
+  </body>
+</html>
