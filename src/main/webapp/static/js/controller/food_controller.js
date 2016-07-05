@@ -1,48 +1,54 @@
-'use strict';
+(function() {
+	'use strict';
 
-App.controller('FoodController', ['$scope', 'FoodService', function($scope, FoodService) {
-          var self = this;
-          self.page;
-          self.foodList = '';
-              
-          self.getFood = function(page, max){
-        	  var max = 10;
-        	  
-        	  FoodService.getFoodListFromTheServer(self.page, max)
-                  .then(
-      					       function(d) {
-      						        self.foodList = d;
-      					       },
-            					function(errResponse){
-      					    	    self.foodList = '';
-            						console.error('Error while getting the food list', errResponse);
-            					}
-      			       );
-          };
-          
-          self.firstPage = function(){
-        	  self.page = 1;
-        	  self.getFood();
-          };
-          self.lastPage = function(){
-        	  self.page = 263;
-        	  self.getFood();
-          };
-          
-          self.nextPage = function(){
-        	  if (self.page < 263){        	  
-        		  self.page++;
-        	  }
-        	  self.getFood();
-          };
-          
-          self.previousPage = function(){
-        	  if (self.page > 1){        	  
-        		  self.page--;
-        	  }
-        	  self.getFood();
-          };
-          
-          self.firstPage();
-          
-      }]);
+	var FoodController = function($scope, FoodService) {
+		$scope.page;
+		$scope.foodList = '';
+
+		var getFood = function(page, max) {
+			var max = 10;
+
+			FoodService.getFoodListFromTheServer($scope.page, max).then(
+					function(data) {
+						$scope.foodList = data;
+					},
+					function(errResponse) {
+						$scope.foodList = '';
+						console.error('Error while getting the food list',
+								errResponse);
+					});
+		};
+
+		var firstPage = function() {
+			$scope.page = 1;
+			getFood();
+		};
+		$scope.firstPage = firstPage;
+
+		$scope.lastPage = function() {
+			$scope.page = 263;
+			getFood();
+		};
+
+		$scope.nextPage = function() {
+			if ($scope.page < 263) {
+				$scope.page++;
+			}
+			getFood();
+		};
+
+		$scope.previousPage = function() {
+			if ($scope.page > 1) {
+				$scope.page--;
+			}
+			getFood();
+		};
+
+		firstPage();
+
+	};
+
+	var module = angular.module("myApp");
+	module.controller("FoodController", FoodController);
+
+}());

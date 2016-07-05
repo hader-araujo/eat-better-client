@@ -1,40 +1,41 @@
-'use strict';
+(function() {
+	'use strict';
 
-App.factory('FoodService', [
-		'$http',
-		'$q',
-		function($http, $q) {
+	var service = function($http, $q) {
 
-			return {
+		var getFoodListFromTheServer = function(page, max) {
 
-				getFoodListFromTheServer : function(page, max) {
-					
-					var params = {
-						page : page,
-						max : max
-					};
-					
-					var config = {
-						params : params,
-						headers : {
-							'Accept' : 'application/json'
-						}
-					};
-
-					return $http.get(
-							'http://localhost:8080/eatbetterserver/food', config
-							)
-							.then(
-									function(response) {
-										return response.data;
-									}, function(errResponse) {
-										console.error('Error while fetching food');
-										return $q.reject(errResponse);
-									});
-					
-					
-				}
-
+			var params = {
+				page : page,
+				max : max
 			};
 
-		} ]);
+			var config = {
+				params : params,
+				headers : {
+					'Accept' : 'application/json'
+				}
+			};
+
+			var url = "http://localhost:8080/eatbetterserver/food";
+
+			return $http.get(url, config).then(function(response) {
+				return response.data;
+			}, function(errResponse) {
+				console.error('Error while fetching food');
+				return $q.reject(errResponse);
+			});
+
+		};
+
+		return {
+
+			getFoodListFromTheServer : getFoodListFromTheServer
+
+		};
+
+	};
+
+	var module = angular.module("myApp");
+	module.factory("FoodService", [ '$http', '$q', service ]);
+}());

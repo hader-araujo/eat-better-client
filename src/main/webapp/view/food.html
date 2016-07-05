@@ -10,14 +10,14 @@
      
   </head>
   <body ng-app="myApp" >
-      <div class="generic-container" ng-controller="FoodController as ctrl">
+      <div class="generic-container" ng-controller="FoodController as controller">
       
           <div class="panel panel-default">
           
-          	<button ng-click="ctrl.firstPage()" class="btn btn-link">FIRST</button>
-          	<button ng-click="ctrl.previousPage()" class="btn btn-link">PREVIOUS</button>
-          	<button ng-click="ctrl.nextPage()" class="btn btn-link">NEXT</button>
-          	<button ng-click="ctrl.lastPage()" class="btn btn-link">LAST</button>
+          	<button ng-click="firstPage()" class="btn btn-link">FIRST</button>
+          	<button ng-click="previousPage()" class="btn btn-link">PREVIOUS</button>
+          	<button ng-click="nextPage()" class="btn btn-link">NEXT</button>
+          	<button ng-click="lastPage()" class="btn btn-link">LAST</button>
           </div>
           
           <div class="panel panel-default">
@@ -32,7 +32,7 @@
                           </tr>
                       </thead>
                       <tbody>
-                       	<tr ng-repeat="foodItem in ctrl.foodList.list.item">
+                       	<tr ng-repeat="foodItem in foodList.list.item">
                              <td><span ng-bind="foodItem.offset + 1"></span></td>
                              <td><span ng-bind="foodItem.id"></span></td>
                              <td><span ng-bind="foodItem.name"></span></td>

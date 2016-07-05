@@ -1,5 +1,5 @@
-'use strict';
+(function(){
+	'use strict';
+	var app = angular.module('myApp',[]);
 
-var App = angular.module('myApp',[]);
-
-
+}());

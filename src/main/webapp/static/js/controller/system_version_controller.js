@@ -1,20 +1,23 @@
-'use strict';
+(function() {
+	'use strict';
 
-App.controller('SystemVersionController', ['$scope', 'SystemVersionService', function($scope, SystemVersionService) {
-          var self = this;
-          self.systemVersion='';
-              
-          self.getSystemVersion = function(){
-        	  SystemVersionService.getSystemVersion()
-                  .then(
-      					       function(d) {
-      						        self.systemVersion = d;
-      					       },
-            					function(errResponse){
-            						console.error('Error while getting the system version');
-            					}
-      			       );
-          };
-           
-          self.getSystemVersion();
-      }]);
+	var controller = function($scope, SystemVersionService) {
+
+		$scope.systemVersion = '';
+
+		var getSystemVersion = function() {
+			SystemVersionService.getSystemVersion().then(function(data) {
+				$scope.systemVersion = data;
+			}, function(errResponse) {
+				console.error('Error while getting the system version');
+			});
+		};
+
+		getSystemVersion();
+
+	};
+
+	var module = angular.module("myApp");
+	module.controller('SystemVersionController', [ controller ]);
+
+})();
