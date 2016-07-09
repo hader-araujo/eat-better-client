@@ -5,14 +5,20 @@
 
 		var getSystemVersion = function() {
 
-			return $http.get(
-					'http://localhost:8080/eatbetterserver/systemversion')
-					.then(function(response) {
-						return response.data;
-					}, function(errResponse) {
-						console.error('Error while fetching system version');
-						return $q.reject(errResponse);
-					});
+			var config = {
+				headers : {
+					'Accept' : 'application/json'
+				}
+			};
+
+			var url = "http://localhost:8080/eatbetterserver/systemversion";
+
+			return $http.get(url, config).then(function(response) {
+				return response.data;
+			}, function(errResponse) {
+				console.error('Error while fetching system version');
+				return $q.reject(errResponse);
+			});
 		};
 
 		return {

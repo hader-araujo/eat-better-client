@@ -18,6 +18,6 @@
 	};
 
 	var module = angular.module("myApp");
-	module.controller('SystemVersionController', [ controller ]);
+	module.controller('SystemVersionController', controller);
 
 })();
