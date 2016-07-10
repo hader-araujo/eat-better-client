@@ -3,7 +3,7 @@
 
 	var service = function($http, $q) {
 
-		var getSystemVersion = function() {
+		var getUser = function() {
 
 			var config = {
 				headers : {
@@ -11,23 +11,23 @@
 				}
 			};
 
-			var url = "http://localhost:8080/eatbetterserver/systemversion";
+			var url = "http://localhost:8080/eatbetterserver/user";
 
 			return $http.get(url, config).then(function(response) {
 				return response.data;
 			}, function(errResponse) {
-				console.error('Error while fetching system version');
+				console.error('Error while fetching user');
 				return $q.reject(errResponse);
 			});
 		};
 
 		return {
-			getSystemVersion : getSystemVersion
+			getUser : getUser
 		};
 
 	};
 
 	var module = angular.module("myApp");
-	module.factory('SystemVersionService', [ '$http', '$q', service ]);
+	module.factory('UserService', [ '$http', '$q', service ]);
 
 }());

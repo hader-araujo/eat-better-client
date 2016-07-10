@@ -1,6 +1,6 @@
 <html>
   <head>  
-    <title>System version</title>  
+    <title>User</title>  
     <style>
 
     </style>
@@ -9,9 +9,9 @@
      <link href="../static/css/app.css" rel="stylesheet"></link>
   </head>
   <body ng-app="myApp" >
-      <div class="generic-container" ng-controller="SystemVersionController as controller">
+      <div class="generic-container" ng-controller="UserController as controller">
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead"> {{systemVersion}} </span></div>
+              <div class="panel-heading"><span class="lead"> {{User}} </span></div>
           </div>
           
           <div class="panel panel-default">
@@ -20,12 +20,14 @@
                   <table class="table table-hover">
                       <thead>
                           <tr>
-                              <th>Version</th>
+                              <th>Login</th>
+                              <th>Name</th>
                           </tr>
                       </thead>
                       <tbody>
                       	<tr>
-                             <td><span ng-bind="systemVersion.version"></span></td>
+                             <td><span ng-bind="User.login"></span></td>
+                             <td><span ng-bind="User.name"></span></td>
                         </tr>
                       </tbody>
                   </table>
@@ -35,7 +37,7 @@
       
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="../static/js/app.js"></script>
-      <script src="../static/js/service/system_version_service.js"></script>
-      <script src="../static/js/controller/system_version_controller.js"></script>
+      <script src="../static/js/service/user_service.js"></script>
+      <script src="../static/js/controller/user_controller.js"></script>
   </body>
 </html>
