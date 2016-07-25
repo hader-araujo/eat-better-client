@@ -3,9 +3,18 @@
 
 	var service = function($http, $q) {
 
-		var getUser = function() {
+		var getUser = function(pageable) {
 
+			var params = {
+					login : pageable.login,
+					name : pageable.name,
+					page : pageable.page,
+					size : pageable.size,
+					sort : pageable.sort + ',' + pageable.order
+				};
+			
 			var config = {
+				params : params,
 				headers : {
 					'Accept' : 'application/json'
 				}
