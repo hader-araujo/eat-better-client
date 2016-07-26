@@ -25,36 +25,34 @@
 						<tr>
 							<th>Login</th>
 							<th>Name</th>
+							<th style="width: 20px;"></th>
+							<th style="width: 20px;"></th>
+						</tr>
+						<tr>
+							<td><input ng-model="search.login" ng-change="setPage(1)"
+								ng-model-options="{debounce: 100}" /></td>
+							<td><input ng-model="search.name" ng-change="setPage(1)"
+								ng-model-options="{debounce: 100}" /></td>
+							<td style="width: 20px;"></td>
+							<td style="width: 20px;"></td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="user in userList">
 							<td><span ng-bind="user.login"></span></td>
 							<td><span ng-bind="user.name"></span></td>
+							<td><a ng-click="editUser(user.id)"
+								class="btn btn-small btn-primary">edit</a></td>
+							<td><a ng-click="deleteUser(user.id)"
+								class="btn btn-small btn-danger">delete</a></td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
 
-			<ul ng-if="pageable.totalPages" class="pagination">
-				<li ng-class="{disabled:pageable.number === 1}"><a
-					ng-click="setPage(1)">First</a></li>
-				<li ng-class="{disabled:pageable.number === 1}"><a
-					ng-click="setPage(pageable.number - 1)">Previous</a></li>
-				
-				<li ng-repeat="page in pages"
-					ng-class="{active:pageable.number === page}"><a
-					ng-click="setPage(page)">{{page}}</a></li>
-				
-				<li
-					ng-class="{disabled:pageable.number === pages.totalPages}">
-					<a ng-click="setPage(pageable.number + 1)">Next</a>
-				</li>
-				<li
-					ng-class="{disabled:pageable.number === pageable.totalPages}">
-					<a ng-click="setPage(pageable.totalPages)">Last</a>
-				</li>
-			</ul>
+			<pagination total-items="pageable.totalElements" ng-model="pageable.number" ng-change="setPage()"  
+			class="pagination-sm" boundary-links="true" rotate="false" max-size="numberPage" num-pages="pageable.totalPages" ></pagination>
+   
+			</div>
 
 		</div>
 	</div>
@@ -63,6 +61,8 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script
+		src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
 	<script src="../static/js/app.js"></script>
 	<script src="../static/js/service/user_service.js"></script>
 	<script src="../static/js/controller/user_controller.js"></script>
