@@ -6,8 +6,7 @@
 		var getUser = function(pageable) {
 
 			var params = {
-					login : pageable.login,
-					name : pageable.name,
+					searchValue : pageable.searchValue,
 					page : pageable.page,
 					size : pageable.size,
 					sort : pageable.sort + ',' + pageable.order
@@ -36,7 +35,7 @@
 
 	};
 
-	var module = angular.module("myApp");
+	var module = angular.module("eat.better");
 	module.factory('UserService', [ '$http', '$q', service ]);
 
 }());

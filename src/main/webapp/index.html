@@ -1,7 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html ng-app="eat.better">
 <head>
-<meta http-equiv="refresh" content="0;url=./view/user.html" />
+<meta charset="ISO-8859-1">
+<title></title>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./static/css/app.css" />
 </head>
+
 <body>
+
+	<div id="page" class="container">
+
+		<div ng-controller="IndexController">
+			<ng-include src="'./view/menu.html'"></ng-include>
+		</div>
+
+		<div ng-view></div>
+
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script>
+
+	<script src="./static/js/app.js"></script>
+	<script src="./static/js/controller/index_controller.js"></script>
+
+	<script src="./static/js/service/user_service.js"></script>
+	<script src="./static/js/controller/user_controller.js"></script>
+
+	<script src="./static/js/service/food_service.js"></script>
+	<script src="./static/js/controller/food_controller.js"></script>
 </body>
 </html>

@@ -36,6 +36,6 @@
 
 	};
 
-	var module = angular.module("myApp");
+	var module = angular.module("eat.better");
 	module.factory("FoodService", [ '$http', '$q', service ]);
 }());
