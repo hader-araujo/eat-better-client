@@ -29,8 +29,19 @@
 			});
 		};
 
+		var deleteUser = function (id){
+			
+			var url = "http://localhost:8080/eatbetterserver/user/" + id;
+			return $http.delete(url).then(function(response){
+				return response.data;
+			}, function (errResponse) {
+				console.error('Error while delete the user');
+			});
+		}; 
+		
 		return {
-			getUser : getUser
+			getUser : getUser,
+			deleteUser : deleteUser
 		};
 
 	};

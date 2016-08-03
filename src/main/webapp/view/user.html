@@ -2,7 +2,7 @@
 <!-- Search field -->
 <div class="input-group col-md-6">
 	<span class="input-group-addon">
-		<span class="glyphicon glyphicon-search"></span>
+		<i class="glyphicon glyphicon-search"></i>
 	</span>
 	<input type="text" ng-model="search.searchValue" ng-change="setPage(1)" ng-model-options="{debounce: 100}" autofocus class="form-control input-lg"
 		name="search" id="search" placeholder="Search" />
@@ -15,9 +15,10 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="col-xs-4  col-sm-4 col-lg-4">
+					<th class="col-xs-4 col-sm-4 col-lg-4">
 						<a href="" ng-click="setSort('login')">
-							<div class="col-md-11 col-xs-10">Login</div> <i
+							<div class="col-md-11 col-xs-10">Login</div>
+							<i
 								ng-class="isSorted('login', 'asc')? 'fa fa-fw fa-sort-asc':
 										  isSorted('login', 'desc') ? 'fa fa-fw fa-sort-desc': 'fa fa-fw fa-sort'">
 							</i>
@@ -25,7 +26,8 @@
 					</th>
 					<th class="col-xs-6 col-sm-5 col-lg-6">
 						<a href="" ng-click="setSort('name')">
-							<div class="col-md-11 col-xs-10">Name</div> <i
+							<div class="col-md-11 col-xs-10">Name</div>
+							<i
 								ng-class="isSorted('name', 'asc')? 'fa fa-fw fa-sort-asc':
 										  isSorted('name', 'desc') ? 'fa fa-fw fa-sort-desc': 'fa fa-fw fa-sort'">
 							</i>
@@ -43,7 +45,8 @@
 						<span ng-bind="user.name"></span>
 					</td>
 					<td>
-						<a ng-click="editUser(user.id)" class="btn btn-primary btn-xs">edit</a> <a ng-click="deleteUser(user.id)" class="btn btn-danger btn-xs">delete</a>
+						<a ng-click="editUser(user.id)" class="btn btn-primary btn-xs">edit</a>
+						<a class="btn btn-danger btn-xs" data-ng-click="setUserClicked(user.id, user.name)" data-toggle="modal" data-target="#deleteDialog">delete</a>
 					</td>
 				</tr>
 			</tbody>
@@ -75,4 +78,22 @@
 		</ul>
 	</div>
 </div>
+
+<!-- Modal delete -->
+<div class="modal fade" id="deleteDialog" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content panel-danger">
+			<div class="modal-header  panel-heading">
+				Question
+				<a href="" class="close" data-dismiss="modal">&times;</a>
+			</div>
+			<div class="modal-body">Are you sure you want to delete the user '{{userNameClicked}}'?</div>
+			<div class="modal-footer">
+				<button class="btn btn-sucess btn-sm" data-dismiss="modal">No</button>
+				<button class="btn btn-danger btn-sm" data-dismiss="modal" data-ng-click="deleteUser();">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
