@@ -3,7 +3,7 @@
 
 	var service = function($http, $q) {
 
-		var getUser = function(pageable) {
+		var getUserList = function(pageable) {
 
 			var params = {
 					searchValue : pageable.searchValue,
@@ -40,7 +40,7 @@
 		}; 
 		
 		return {
-			getUser : getUser,
+			getUserList : getUserList,
 			deleteUser : deleteUser
 		};
 

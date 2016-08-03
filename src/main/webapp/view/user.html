@@ -1,13 +1,22 @@
 
+<div class="row">
 <!-- Search field -->
-<div class="input-group col-md-6">
-	<span class="input-group-addon">
-		<i class="glyphicon glyphicon-search"></i>
-	</span>
-	<input type="text" ng-model="search.searchValue" ng-change="setPage(1)" ng-model-options="{debounce: 100}" autofocus class="form-control input-lg"
-		name="search" id="search" placeholder="Search" />
+	<div class="col-md-6">
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="glyphicon glyphicon-search"></i>
+			</span>
+			<input type="text" ng-model="search.searchValue" ng-change="setPage(1)" ng-model-options="{debounce: 100}" autofocus class="form-control input-lg"
+				name="search" id="search" placeholder="Search" />
+		</div>
+	</div>
+<!-- New user button -->
+	<div class="text-right">
+		<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createDialog">
+			<i class="glyphicon glyphicon-bookmark"></i> New User
+		</a>
+	</div>
 </div>
-
 <br />
 
 <div class="panel panel-default">
@@ -58,42 +67,28 @@
 <div class="row">
 	<div class="text-center">
 		<ul class="pagination pagination-sm ">
-			<li class="page-item" ng-class="{disabled:pageable.number === 1}">
+			<li class="page-item" ng-class="{disabled:pagination.number === 1}">
 				<a ng-click="setPage(1)" href="">First</a>
 			</li>
-			<li ng-class="{disabled:pageable.number === 1}">
-				<a ng-click="setPage(pageable.number - 1)" href="">Previous</a>
+			<li ng-class="{disabled:pagination.number === 1}">
+				<a ng-click="setPage(pagination.number - 1)" href="">Previous</a>
 			</li>
 
-			<li ng-repeat="page in pagesNumberArray" ng-class="{active:pageable.number === page}">
+			<li ng-repeat="page in pagesNumberArray" ng-class="{active:pagination.number === page}">
 				<a ng-click="setPage(page)" href="">{{page}}</a>
 			</li>
 
-			<li ng-class="{disabled:pageable.number === pageable.totalPages}">
-				<a ng-click="setPage(pageable.number + 1)" href="">Next</a>
+			<li ng-class="{disabled:pagination.number === pagination.totalPages}">
+				<a ng-click="setPage(pagination.number + 1)" href="">Next</a>
 			</li>
-			<li ng-class="{disabled:pageable.number === pageable.totalPages}">
-				<a ng-click="setPage(pageable.totalPages)" href="">Last</a>
+			<li ng-class="{disabled:pagination.number === pagination.totalPages}">
+				<a ng-click="setPage(pagination.totalPages)" href="">Last</a>
 			</li>
 		</ul>
 	</div>
 </div>
 
-<!-- Modal delete -->
-<div class="modal fade" id="deleteDialog" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content panel-danger">
-			<div class="modal-header  panel-heading">
-				Question
-				<a href="" class="close" data-dismiss="modal">&times;</a>
-			</div>
-			<div class="modal-body">Are you sure you want to delete the user '{{userNameClicked}}'?</div>
-			<div class="modal-footer">
-				<button class="btn btn-sucess btn-sm" data-dismiss="modal">No</button>
-				<button class="btn btn-danger btn-sm" data-dismiss="modal" data-ng-click="deleteUser();">Delete</button>
-			</div>
-		</div>
-	</div>
-</div>
-
+<!-- Modals-->
+<ng-include src="'./view/user_delete.html'"></ng-include>
+<ng-include src="'./view/user_create.html'"></ng-include>
 

@@ -2,75 +2,71 @@
 	'use strict';
 
 	var controller = function($scope, UserService) {
+		// attributes to be used in the html file
 		$scope.userList = '';
 		$scope.pagesNumberArray = [];
-
-		$scope.pagination = {
-
-		};
-
 		$scope.search = {
 			searchValue : '',
 			sort : '',
 			order : ''
 		};
-
-		$scope.pageable = {
+		$scope.pagination = {
 			number : 1,
 			totalElements : 0,
 			totalPages : 0,
 			size : 10
 		};
 
-		var getUser = function() {
-			var pageableParam = {
+		// Getting users
+		var getUserList = function() {
+			var paginationParam = {
 				searchValue : $scope.search.searchValue,
 				sort : $scope.search.sort,
 				order : $scope.search.order,
-				page : $scope.pageable.number - 1,
-				size : $scope.pageable.size,
+				page : $scope.pagination.number - 1,
+				size : $scope.pagination.size,
 			};
 
-			UserService.getUser(pageableParam).then(function(data) {
+			UserService.getUserList(paginationParam).then(function(data) {
 				$scope.userList = data.content;
-				$scope.pageable = data.page;
-				$scope.pageable.number++;
+				$scope.pagination = data.page;
+				$scope.pagination.number++;
 				setPagesNumberArray();
 
 			}, function(errResponse) {
 				console.error('Error while getting the user');
 			});
 		};
+		getUserList();
 
+		// Pagination
 		var setPagesNumberArray = function() {
 			var startPage, endPage;
-			if ($scope.pageable.totalPages <= 10) {
+			if ($scope.pagination.totalPages <= 10) {
 				// less than 10 total pages so show all
 				startPage = 1;
-				endPage = $scope.pageable.totalPages;
+				endPage = $scope.pagination.totalPages;
 			} else {
 				// more than 10 total pages so calculate start and end pages
-				if ($scope.pageable.number <= 6) {
+				if ($scope.pagination.number <= 6) {
 					startPage = 1;
 					endPage = 10;
-				} else if ($scope.pageable.number + 4 >= $scope.pageable.totalPages) {
-					startPage = $scope.pageable.totalPages - 9;
-					endPage = $scope.pageable.totalPages;
+				} else if ($scope.pagination.number + 4 >= $scope.pagination.totalPages) {
+					startPage = $scope.pagination.totalPages - 9;
+					endPage = $scope.pagination.totalPages;
 				} else {
-					startPage = $scope.pageable.number - 5;
-					endPage = $scope.pageable.number + 4;
+					startPage = $scope.pagination.number - 5;
+					endPage = $scope.pagination.number + 4;
 				}
 			}
 			$scope.pagesNumberArray = _.range(startPage, endPage + 1);
 		};
-
 		$scope.setPage = function(newPage) {
-			$scope.pageable.number = newPage;
-			getUser();
+			$scope.pagination.number = newPage;
+			getUserList();
 		};
 
-		getUser();
-
+		// Sort
 		$scope.setSort = function(field) {
 			if (field === $scope.search.sort) {
 				$scope.search.order = $scope.search.order === "asc" ? "desc"
@@ -81,14 +77,13 @@
 			}
 			$scope.setPage(1);
 		};
-
 		$scope.isSorted = function(field, order) {
 			return field === $scope.search.sort
 					&& order === $scope.search.order;
 		};
-
 		$scope.setSort("login");
 
+		// User clicked - to be used to delete and update user
 		$scope.userIdClicked = 0;
 		$scope.userNameClicked = 0;
 		$scope.setUserClicked = function(id, name) {
@@ -96,9 +91,10 @@
 			$scope.userNameClicked = name;
 		};
 
+		// delete user
 		$scope.deleteUser = function() {
 			UserService.deleteUser($scope.userIdClicked).then(function(data) {
-				getUser();
+				getUserList();
 
 			}, function(errResponse) {
 				alert("Error trying to delete the user.");
@@ -108,6 +104,7 @@
 
 	};
 
+	// creation of the controller
 	var module = angular.module("eat.better");
 	module.controller('UserController', controller);
 
