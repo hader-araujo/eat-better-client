@@ -2,6 +2,14 @@
 	'use strict';
 
 	var controller = function($scope, UserService) {
+		// set focus (generic code)
+		$(document).on('shown.bs.modal', function() {
+			$(this).find('.modal-body input:text:visible:first').focus();
+		});
+		$(document).on('hidden.bs.modal', function() {
+			$(this).find('input:text:visible:first').focus();
+		});
+
 		// attributes to be used in the html file
 		$scope.userList = '';
 		$scope.pagesNumberArray = [];
@@ -95,13 +103,38 @@
 		$scope.deleteUser = function() {
 			UserService.deleteUser($scope.userIdClicked).then(function(data) {
 				getUserList();
-
 			}, function(errResponse) {
-				alert("Error trying to delete the user.");
 				console.error('Error while delete the user');
 			});
 		};
 
+		// User Create
+		var resetUserForm = function(userForm) {
+			$scope.newUser = {
+				login : "",
+				name : ""
+			};
+			if (userForm) {
+				userForm.$setPristine();
+			}
+		};
+
+		$scope.saveUser = function(userForm) {
+			if (userForm.$valid) {
+				saveNewUser(userForm);
+			}
+		};
+		var saveNewUser = function(userForm) {
+			UserService.saveUser($scope.newUser).then(function(data) {
+				$('#createDialog').modal('toggle');
+				getUserList();
+				resetUserForm(userForm);
+
+			}, function(errResponse) {
+				console.error('Error trying to save a new user.');
+			});
+		};
+		resetUserForm();
 	};
 
 	// creation of the controller

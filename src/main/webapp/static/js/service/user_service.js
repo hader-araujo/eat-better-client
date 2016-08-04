@@ -3,6 +3,8 @@
 
 	var service = function($http, $q) {
 
+		var url = "http://localhost:8080/eatbetterserver/user";
+
 		var getUserList = function(pageable) {
 
 			var params = {
@@ -19,8 +21,6 @@
 				}
 			};
 
-			var url = "http://localhost:8080/eatbetterserver/user";
-
 			return $http.get(url, config).then(function(response) {
 				return response.data;
 			}, function(errResponse) {
@@ -31,17 +31,26 @@
 
 		var deleteUser = function (id){
 			
-			var url = "http://localhost:8080/eatbetterserver/user/" + id;
-			return $http.delete(url).then(function(response){
+			return $http.delete(url + "/" +  id).then(function(response){
 				return response.data;
 			}, function (errResponse) {
 				console.error('Error while delete the user');
 			});
-		}; 
+		};
+		
+		var saveUser = function (user){
+			
+			return $http.post(url, user).then(function(response){
+				return response.data;
+			}, function (errResponse) {
+				console.error('Error while save a new user');
+			});
+		};
 		
 		return {
 			getUserList : getUserList,
-			deleteUser : deleteUser
+			deleteUser : deleteUser,
+			saveUser : saveUser
 		};
 
 	};
