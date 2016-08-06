@@ -47,10 +47,20 @@
 			});
 		};
 		
+		var updateUser = function (user){
+			
+			return $http.put(url, user).then(function(response){
+				return response.data;
+			}, function (errResponse) {
+				console.error('Error while update the user');
+			});
+		};
+		
 		return {
 			getUserList : getUserList,
 			deleteUser : deleteUser,
-			saveUser : saveUser
+			saveUser : saveUser,
+			updateUser : updateUser
 		};
 
 	};

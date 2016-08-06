@@ -45,7 +45,6 @@
 				console.error('Error while getting the user');
 			});
 		};
-		getUserList();
 
 		// Pagination
 		var setPagesNumberArray = function() {
@@ -89,19 +88,15 @@
 			return field === $scope.search.sort
 					&& order === $scope.search.order;
 		};
-		$scope.setSort("login");
-
-		// User clicked - to be used to delete and update user
-		$scope.userIdClicked = 0;
-		$scope.userNameClicked = 0;
-		$scope.setUserClicked = function(id, name) {
-			$scope.userIdClicked = id;
-			$scope.userNameClicked = name;
-		};
+		$scope.setSort("name");
 
 		// delete user
+		$scope.userToDelete = {};
+		$scope.setUserToDelete = function(user) {
+			$scope.userToDelete = user;
+		};
 		$scope.deleteUser = function() {
-			UserService.deleteUser($scope.userIdClicked).then(function(data) {
+			UserService.deleteUser($scope.userToDelete.id).then(function(data) {
 				getUserList();
 			}, function(errResponse) {
 				console.error('Error while delete the user');
@@ -109,8 +104,9 @@
 		};
 
 		// User Create
+		$scope.postType = ""; // it can be CREATE or UPDATE
 		var resetUserForm = function(userForm) {
-			$scope.newUser = {
+			$scope.userPost = {
 				login : "",
 				name : ""
 			};
@@ -118,21 +114,44 @@
 				userForm.$setPristine();
 			}
 		};
-
+		
+		$scope.setDialogToCreate = function() {
+			$scope.postType = "CREATE";
+			$('#modalDialog').modal('toggle');
+		};
 		$scope.saveUser = function(userForm) {
 			if (userForm.$valid) {
-				saveNewUser(userForm);
+				UserService.saveUser($scope.userPost).then(function(data) {
+					$('#modalDialog').modal('toggle');
+					getUserList();
+					resetUserForm(userForm);
+
+				}, function(errResponse) {
+					console.error('Error trying to save a new user.');
+				});
 			}
 		};
-		var saveNewUser = function(userForm) {
-			UserService.saveUser($scope.newUser).then(function(data) {
-				$('#createDialog').modal('toggle');
+
+		// update user
+		$scope.setDialogToUpdate = function(user) {
+			$scope.postType = "UPDATE";
+			$scope.userPost = angular.copy(user);
+			$('#modalDialog').modal('toggle');
+		};
+		$scope.updateUser = function() {
+			UserService.updateUser($scope.userPost).then(function(data) {
+				$('#modalDialog').modal('toggle');
 				getUserList();
 				resetUserForm(userForm);
-
 			}, function(errResponse) {
-				console.error('Error trying to save a new user.');
+				console.error('Error while updating the user');
 			});
+		};
+
+		$scope.closeDialog = function(userForm) {
+			$('#modalDialog').modal('toggle');
+			resetUserForm(userForm);
+
 		};
 		resetUserForm();
 	};
